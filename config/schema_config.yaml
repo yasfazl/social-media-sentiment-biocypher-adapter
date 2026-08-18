@@ -1,0 +1,43 @@
+# Schema Configuration for sys-bio-kgs
+
+# Example schema configuration
+# Customize this based on your data source and requirements
+
+# Node types
+# Example protein node
+protein:  # Class name in lowercase, exists in the ontology
+  represented_as: node
+  input_label: protein  # Used to identify the node in the input (second element of the node tuple)
+  properties:  # Keys of the property dictionary (third element of the node tuple)
+    name: string
+    description: string
+    organism: string
+    sequence: string
+
+# Example gene node
+gene:  # Class name in lowercase, exists in the ontology
+  represented_as: node
+  input_label: gene
+  properties:
+    name: string
+    symbol: string
+    description: string
+    chromosome: string
+    start_position: integer
+    end_position: integer
+
+# Edge types
+# Example protein-gene relationship
+protein_encoded_by_gene:  # Edge name in lowercase, does not exist in the ontology
+  is_a: association  # Attached to type that exists in the ontology
+  represented_as: edge
+  input_label: encoded_by  # Used to identify the edge in the input (fourth element of the edge tuple)
+  source: protein  # Source node type
+  target: gene  # Target node type
+  properties:  # Keys of the property dictionary (fifth element of the edge tuple)
+    confidence: float
+    evidence: string
+
+# TODO: Add more node and edge types based on your data source
+# Refer to BioCypher documentation for more examples:
+# https://biocypher.org/BioCypher/learn/tutorials/tutorial002_handling_ontologies/
