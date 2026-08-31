@@ -29,21 +29,15 @@ def main():
         schema_config_path="config/schema_config.yaml"
     )
     
-    # Initialize the adapter
-    # TODO: Configure your CSV data source path here
-    data_source = "data/your_data.csv"  # Update this with your actual CSV file path
-    
-    adapter = SentimentAdapter(
-        data_source=data_source,
-        # Add any additional configuration parameters here
-    )
+    adapter = SentimentAdapter(data_source="data/sentimentdataset.csv")
     
     # Create the knowledge graph
     logger.info("Creating knowledge graph...")
     bc.write_nodes(adapter.get_nodes())
     bc.write_edges(adapter.get_edges())
+    import_script = bc.write_import_call()
     
-    logger.info("Knowledge graph creation completed successfully!")
+    logger.info("Knowledge graph creation completed successfully: %s", import_script)
 
     # Create final summary
     bc.summary()

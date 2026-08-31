@@ -139,3 +139,7 @@ output/
 data/
 *.db
 *.sqlite
+
+.DS_Store
+output_v2/
+output_v3/

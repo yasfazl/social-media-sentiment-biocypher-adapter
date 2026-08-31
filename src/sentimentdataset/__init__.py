@@ -1,0 +1,1 @@
+"""Social-media sentiment BioCypher adapter package."""

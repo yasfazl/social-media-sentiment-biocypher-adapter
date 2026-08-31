@@ -15,11 +15,11 @@ biocypher:
   #---- OPTIONAL PARAMETERS
   log_to_disk: true
 
-  debug: true
+  debug: false
 
   log_directory: biocypher-log
 
-  output_directory: biocypher-out
+  output_directory: output_v3
 
   cache_directory: .cache
 
@@ -43,6 +43,7 @@ biocypher:
 #---- NEO4J database management system
 neo4j:
   database_name: neo4j
+  file_format: csv
   wipe: true
 
   uri: neo4j://localhost:7687
@@ -55,7 +56,7 @@ neo4j:
 
   multi_db: true
 
-  skip_duplicate_nodes: false
+  skip_duplicate_nodes: true
   skip_bad_relationships: false
 
   # import_call_bin_prefix: bin/

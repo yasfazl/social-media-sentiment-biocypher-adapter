@@ -1,135 +1,91 @@
-# socialmedia adapter
+# Social Media Sentiment BioCypher Adapter
 
-creating an adapter
+## Purpose
 
-## Overview
+This project converts `data/sentimentdataset.csv` into a Neo4j-compatible knowledge graph using BioCypher.
 
-This BioCypher pipeline processes file data using the sentiment to create a knowledge graph.
+## Graph Model
 
-## Features
+**Nodes**
 
-- **Data Source**: file data processing
-- **Adapter**: sentiment
-- **Output**: Neo4j knowledge graph
-- **Docker Support**: Containerized deployment
-- **Testing**: Comprehensive test suite
+- `User`
+- `SocialMediaPost`
+- `Emotion`
+- `Hashtag`
+
+**Relationships**
+
+- `User -> POSTED -> SocialMediaPost`
+- `SocialMediaPost -> EXPRESSES -> Emotion`
+- `SocialMediaPost -> HAS_TAG -> Hashtag`
+
+`SocialMediaPost` nodes retain the original post `text`, `timestamp`, `platform`, `country`, `likes`, `retweets`, and both CSV identifier columns as provenance properties. Country, platform, time components, and engagement values are not modeled as separate nodes. Year, month, day, and hour are derivable from the timestamp and are not duplicated as graph properties.
+
+## Normalization and Duplicates
+
+All string values are trimmed. User and emotion identities use case-normalized values while preserving their human-readable labels as node properties. Hashtags are split into individual values, stripped of `#`, lowercased, and deduplicated within each post; empty hashtags are skipped.
+
+Node IDs are deterministic. Post IDs are hashes of a canonical semantic payload containing the normalized user, timestamp, text, emotion, platform, country, likes, retweets, and sorted normalized hashtags. Exact semantic duplicates collapse, while otherwise matching records with different platforms or countries remain separate. Source CSV identifiers are retained as provenance arrays on collapsed posts.
+
+## Dataset Setup
+
+The `data/` directory is intentionally gitignored. Place the dataset at:
+
+```text
+data/sentimentdataset.csv
+```
+
+The CSV must include these columns:
+
+```text
+Text, Sentiment, Timestamp, User, Platform, Hashtags, Retweets, Likes, Country
+```
+
+The dataset's two identifier columns (the leading unnamed column and `Unnamed: 0`) are retained as provenance; they do not define post identity.
 
 ## Installation
 
-### Prerequisites
-
-- Python 3.11 or higher
-- Neo4j database (local or remote)
-
-### Setup
-
-1. Clone this repository:
-   ```bash
-   git clone <repository-url>
-   cd socialmedia adapter
-   ```
-
-2. Install dependencies:
-   ```bash
-   pip install -e .
-   ```
-
-   Or using uv:
-   ```bash
-   uv sync
-   ```
-
-3. Configure your data source in `create_knowledge_graph.py`
-
-4. Update the schema configuration in `config/schema_config.yaml` if needed
-
-## Usage
-
-### Basic Usage
-
-Run the pipeline to create the knowledge graph:
-
 ```bash
-python create_knowledge_graph.py
+python3 -m pip install -e .
 ```
 
-### Configuration
-
-The pipeline uses two main configuration files:
-
-- `config/biocypher_config.yaml` - BioCypher settings
-- `config/schema_config.yaml` - Schema mapping configuration
-### Docker Usage
-
-Build and run with Docker:
-
-```bash
-docker-compose up -d
-```
-
-This will:
-1. Build the BioCypher pipeline
-2. Import the data into Neo4j
-3. Start the Neo4j instance
-
-Access Neo4j at: http://localhost:7474
 ## Testing
 
-Run the test suite:
-
 ```bash
-pytest tests/ -v
+python3 -m pytest -q
 ```
 
-Run with coverage:
+## Graph Generation
 
 ```bash
-pytest tests/ --cov=sentimentdataset.csv --cov-report=html
+python3 create_knowledge_graph.py
 ```
+
+BioCypher writes Neo4j-compatible CSV files, headers, and `neo4j-admin-import-call.sh` to `output_v3/`. Output directories are intentionally gitignored.
 
 ## Project Structure
 
-```
+```text
 socialmedia adapter/
 ├── config/
 │   ├── biocypher_config.yaml
 │   └── schema_config.yaml
-├── src/sentimentdataset.csv/
-│   └── adapters/
-│       └── sentiment.py
-├── create_knowledge_graph.py
-├── docker-compose.yml
-├── Dockerfile
+├── data/
+│   └── sentimentdataset.csv
+├── src/
+│   └── sentimentdataset/
+│       └── csv/
+│           └── adapters/
+│               └── sentiment.py
 ├── tests/
 │   └── test_sentiment.py
+├── create_knowledge_graph.py
 ├── pyproject.toml
 └── README.md
 ```
 
-## Development
-
-### Code Style
-
-This project uses:
-- **Black** for code formatting
-- **isort** for import sorting
-- **mypy** for type checking
-
-Format code:
-```bash
-black .
-isort .
-```
-
-Type checking:
-```bash
-mypy src/
-```
-
-## License
-
-MIT
+Adapter source: `src/sentimentdataset/csv/adapters/sentiment.py`
 
 ## Author
 
-BioCypher User - user@example.com
+Yasamin Fazeli
