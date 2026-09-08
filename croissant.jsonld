@@ -1,0 +1,339 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "dct": "http://purl.org/dc/terms/",
+    "bsc": "https://bioschemas.org/profiles/Dataset/1.0-RELEASE/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "samplingRate": "cr:samplingRate",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform",
+    "@base": "cr_base_iri/"
+  },
+  "@type": "SoftwareSourceCode",
+  "dct:conformsTo": "https://bioschemas.org/profiles/ComputationalTool/1.0-RELEASE/",
+  "@id": "social-media-sentiment-biocypher-adapter",
+  "name": "Social Media Sentiment BioCypher Adapter",
+  "description": "A BioCypher adapter that transforms a social media sentiment CSV dataset into a Neo4j-compatible knowledge graph. It creates User, SocialMediaPost, Emotion, and Hashtag nodes, connected through POSTED, EXPRESSES, and HAS_TAG relationships. The adapter normalizes values, handles duplicate records, and preserves relevant source information.",
+  "version": "0.1.0",
+  "license": "https://opensource.org/licenses/MIT",
+  "codeRepository": "https://github.com/yasfazl/social-media-sentiment-biocypher-adapter",
+  "creator": [
+    {
+      "@type": "Person",
+      "name": "Yasamin Fazeli",
+      "affiliation": "Heidelberg University",
+      "url": "https://github.com/yasfazl"
+    }
+  ],
+  "keywords": [
+    "BioCypher",
+    "Neo4j",
+    "knowledge graph",
+    "social media",
+    "sentiment analysis",
+    "CSV"
+  ],
+  "hasPart": [
+    {
+      "@type": "sc:Dataset",
+      "name": "Social Media Sentiments Analysis Dataset",
+      "description": "Social media posts with sentiment labels, timestamps, users, platforms, hashtags, engagement metrics, and geographical information.",
+      "conformsTo": "http://mlcommons.org/croissant/1.0",
+      "citeAs": "Parmar, Kashish. Social Media Sentiments Analysis Dataset. Kaggle, version 3, 2024.",
+      "creator": [
+        {
+          "@type": "sc:Person",
+          "name": "Kashish Parmar",
+          "url": "https://www.kaggle.com/kashishparmar02"
+        }
+      ],
+      "datePublished": "2024-01-01T00:00:00Z",
+      "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "url": "https://www.kaggle.com/datasets/kashishparmar02/social-media-sentiments-analysis-dataset",
+      "version": "3",
+      "distribution": [
+        {
+          "@type": "cr:FileObject",
+          "@id": "social-media-sentiments-analysis-dataset-1/file_0",
+          "name": "sentimentdataset.csv",
+          "contentSize": "170776",
+          "contentUrl": "sentimentdataset.csv",
+          "encodingFormat": "text/csv",
+          "sha256": "725c6f7bc928c2bf741094f37078024b305982523fe6d0b8cb20a6cf5275c63b"
+        }
+      ],
+      "recordSet": [
+        {
+          "@type": "cr:RecordSet",
+          "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset",
+          "name": "social-media-sentiments-analysis-dataset-1/sentimentdataset",
+          "description": "Records from sentimentdataset.csv",
+          "field": [
+            {
+              "@type": "cr:Field",
+              "name": "Unnamed: 0",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Unnamed__0",
+              "dataType": "cr:Int64",
+              "description": "Column 'Unnamed: 0' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Unnamed__0/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "Unnamed: 0"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "name": "Text",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Text",
+              "dataType": "sc:Text",
+              "description": "Column 'Text' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Text/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "Text"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "name": "Sentiment",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Sentiment",
+              "dataType": "sc:Text",
+              "description": "Column 'Sentiment' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Sentiment/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "Sentiment"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "name": "Timestamp",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Timestamp",
+              "dataType": "sc:DateTime",
+              "description": "Column 'Timestamp' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Timestamp/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "Timestamp"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "name": "User",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/User",
+              "dataType": "sc:Text",
+              "description": "Column 'User' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/User/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "User"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "name": "Platform",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Platform",
+              "dataType": "sc:Text",
+              "description": "Column 'Platform' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Platform/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "Platform"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "name": "Hashtags",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Hashtags",
+              "dataType": "sc:Text",
+              "description": "Column 'Hashtags' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Hashtags/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "Hashtags"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "name": "Retweets",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Retweets",
+              "dataType": "cr:Float64",
+              "description": "Column 'Retweets' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Retweets/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "Retweets"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "name": "Likes",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Likes",
+              "dataType": "cr:Float64",
+              "description": "Column 'Likes' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Likes/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "Likes"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "name": "Country",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Country",
+              "dataType": "sc:Text",
+              "description": "Column 'Country' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Country/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "Country"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "name": "Year",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Year",
+              "dataType": "cr:Int64",
+              "description": "Column 'Year' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Year/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "Year"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "name": "Month",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Month",
+              "dataType": "cr:Int64",
+              "description": "Column 'Month' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Month/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "Month"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "name": "Day",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Day",
+              "dataType": "cr:Int64",
+              "description": "Column 'Day' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Day/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "Day"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "name": "Hour",
+              "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Hour",
+              "dataType": "cr:Int64",
+              "description": "Column 'Hour' from sentimentdataset.csv",
+              "source": {
+                "@id": "social-media-sentiments-analysis-dataset-1/sentimentdataset/Hour/source",
+                "fileObject": {
+                  "@id": "social-media-sentiments-analysis-dataset-1/file_0"
+                },
+                "extract": {
+                  "column": "Hour"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
