@@ -3,7 +3,7 @@
 .gitignore
 
 # Documentation
-README.md
+
 docs/
 
 # Tests
@@ -39,3 +39,11 @@ logs/
 
 # Output
 output/
+
+
+# Local data and generated files
+data/
+output_v2/
+output_v3/
+biocypher-log/
+.cache/

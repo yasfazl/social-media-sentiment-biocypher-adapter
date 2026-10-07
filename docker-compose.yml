@@ -1,46 +1,44 @@
 services:
-  # BioCypher pipeline service
-  sentimentdataset.csv:
+  build:
     build: .
-    container_name: sentimentdataset.csv-pipeline
+    image: social-media-sentiment-adapter
+    command:
+      - /bin/sh
+      - -c
+      - |
+        find /app/output_v3 -mindepth 1 -maxdepth 1 -type f -delete
+        exec python create_knowledge_graph.py
     volumes:
       - ./data:/app/data:ro
-      - ./logs:/app/logs
-      - ./output:/app/output
-    environment:
-      - NEO4J_URI=bolt://neo4j:7687
-      - NEO4J_USER=neo4j
-      - NEO4J_PASSWORD=password
-    depends_on:
-      - neo4j
-    networks:
-      - biocypher-network
+      - ./output_v3:/app/output_v3
 
-  # Neo4j database service
+  import:
+    image: neo4j:5.26-community
+    depends_on:
+      build:
+        condition: service_completed_successfully
+    working_dir: /var/lib/neo4j
+    entrypoint:
+      - /bin/bash
+      - /app/output_v3/neo4j-admin-import-call.sh
+    environment:
+      HEAP_SIZE: 1G
+    volumes:
+      - ./output_v3:/app/output_v3:ro
+      - neo4j_data:/data
+
   neo4j:
-    image: neo4j:5.15-community
-    container_name: sentimentdataset.csv-neo4j
+    image: neo4j:5.26-community
+    depends_on:
+      import:
+        condition: service_completed_successfully
     ports:
       - "7474:7474"
       - "7687:7687"
     environment:
-      - NEO4J_AUTH=neo4j/password
-      - NEO4J_PLUGINS=["apoc"]
-      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+      NEO4J_AUTH: neo4j/password
     volumes:
       - neo4j_data:/data
-      - neo4j_logs:/logs
-      - neo4j_import:/var/lib/neo4j/import
-      - neo4j_plugins:/plugins
-    networks:
-      - biocypher-network
 
 volumes:
   neo4j_data:
-  neo4j_logs:
-  neo4j_import:
-  neo4j_plugins:
-
-networks:
-  biocypher-network:
-    driver: bridge

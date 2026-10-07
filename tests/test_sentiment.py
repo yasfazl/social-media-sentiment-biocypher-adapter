@@ -3,7 +3,7 @@
 import csv
 from pathlib import Path
 
-from sentimentdataset.csv.adapters.sentiment import SentimentAdapter
+from sentimentdataset.adapter import SentimentAdapter
 
 HEADERS = [
     "",
