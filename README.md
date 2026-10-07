@@ -278,9 +278,8 @@ social-media-sentiment-biocypher-adapter/
 │   └── sentimentdataset.csv
 ├── src/
 │   └── sentimentdataset/
-│       └── csv/
-│           └── adapters/
-│               └── sentiment.py
+│       ├── __init__.py
+│       └── adapter.py
 ├── tests/
 │   └── test_sentiment.py
 ├── create_knowledge_graph.py

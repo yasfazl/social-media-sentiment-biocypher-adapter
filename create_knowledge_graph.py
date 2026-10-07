@@ -9,7 +9,7 @@ import logging
 from pathlib import Path
 
 from biocypher import BioCypher
-from sentimentdataset.csv.adapters.sentiment import SentimentAdapter
+from sentimentdataset.adapter import SentimentAdapter
 
 # Configure logging
 logging.basicConfig(
