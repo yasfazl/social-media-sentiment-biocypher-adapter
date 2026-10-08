@@ -139,7 +139,7 @@ Run the pipeline from the repository root:
 python create_knowledge_graph.py
 ```
 
-BioCypher writes the following files to `output_v3/`:
+BioCypher writes the following files to `biocypher-output/`:
 
 - node CSV files and their headers;
 - relationship CSV files and their headers; and
@@ -193,7 +193,7 @@ If you generated the files with Python and want to use an existing Neo4j
 installation:
 
 1. Stop the target Neo4j instance.
-2. Inspect `output_v3/neo4j-admin-import-call.sh`.
+2. Inspect `biocypher-output/neo4j-admin-import-call.sh`.
 3. Make sure the paths in the script point to the generated CSV files.
 4. Run the script from the Neo4j installation directory, where
    `bin/neo4j-admin` is available.
@@ -312,7 +312,7 @@ social-media-sentiment-biocypher-adapter/
 | CSV not found | Confirm that `data/sentimentdataset.csv` exists and run the command from the repository root. |
 | Python cannot import the adapter | Activate the virtual environment and run `python -m pip install -e .`. |
 | Docker cannot copy `README.md` | Ensure that `.dockerignore` does not exclude `README.md`. |
-| Import cannot find `/app/output_v3/` | Match the Docker volume path or update the generated script for the host installation. |
+| Import cannot find `/app/biocypher-output/` | Match the Docker volume path or update the generated script for the host installation. |
 | Unsupported Java version | Install the Java version supported by the selected Neo4j release. |
 | Port 7474 or 7687 is occupied | Stop the other Neo4j instance or change the published Docker ports. |
 

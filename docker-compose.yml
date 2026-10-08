@@ -6,11 +6,11 @@ services:
       - /bin/sh
       - -c
       - |
-        find /app/output_v3 -mindepth 1 -maxdepth 1 -type f -delete
+        find /app/biocypher-output -mindepth 1 -maxdepth 1 -type f -delete
         exec python create_knowledge_graph.py
     volumes:
       - ./data:/app/data:ro
-      - ./output_v3:/app/output_v3
+      - ./biocypher-output:/app/biocypher-output
 
   import:
     image: neo4j:5.26-community
@@ -20,11 +20,11 @@ services:
     working_dir: /var/lib/neo4j
     entrypoint:
       - /bin/bash
-      - /app/output_v3/neo4j-admin-import-call.sh
+      - /app/biocypher-output/neo4j-admin-import-call.sh
     environment:
       HEAP_SIZE: 1G
     volumes:
-      - ./output_v3:/app/output_v3:ro
+      - ./biocypher-output:/app/biocypher-output:ro
       - neo4j_data:/data
 
   neo4j:
