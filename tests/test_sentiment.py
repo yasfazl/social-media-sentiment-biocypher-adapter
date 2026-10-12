@@ -183,6 +183,10 @@ class TestSentimentAdapter:
 
         assert SentimentAdapter(path).validate_data_source() is False
 
+    @pytest.mark.skipif(
+        not Path("data/sentimentdataset.csv").exists(),
+        reason="Full sentiment dataset is not available; data/ is intentionally gitignored.",
+    )
     def test_real_dataset_posted_and_expresses_counts_and_endpoints(self) -> None:
         adapter = SentimentAdapter("data/sentimentdataset.csv")
         nodes = {node_id for node_id, _, _ in adapter.get_nodes()}
