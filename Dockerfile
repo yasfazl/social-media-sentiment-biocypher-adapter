@@ -1,29 +1,17 @@
-# Dockerfile for socialmedia adapter
-
 FROM python:3.11-slim
 
-# Set working directory
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy requirements and install Python dependencies
-COPY pyproject.toml ./
-RUN pip install --no-cache-dir -e .
-
-# Copy source code
-COPY . .
-
-# Create logs directory
-RUN mkdir -p logs
-
-# Set environment variables
-ENV PYTHONPATH=/app/src
+ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app/src
 
-# Default command
+COPY pyproject.toml README.md ./
+COPY src ./src
+
+RUN python -m pip install --no-cache-dir -e .
+
+COPY config ./config
+COPY create_knowledge_graph.py ./
+
 CMD ["python", "create_knowledge_graph.py"]

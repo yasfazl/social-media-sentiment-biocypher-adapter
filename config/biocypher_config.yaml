@@ -19,7 +19,7 @@ biocypher:
 
   log_directory: biocypher-log
 
-  output_directory: output_v3
+  output_directory: biocypher-output
 
   cache_directory: .cache
 

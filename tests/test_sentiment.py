@@ -1,11 +1,10 @@
 """Tests for the v3 social-media sentiment graph adapter."""
-
 import csv
 from pathlib import Path
 
 import pytest
 
-from sentimentdataset.csv.adapters.sentiment import SentimentAdapter
+from sentimentdataset.adapter import SentimentAdapter
 
 HEADERS = [
     "",

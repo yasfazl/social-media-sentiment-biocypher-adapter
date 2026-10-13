@@ -29,6 +29,9 @@ dev = [
     "mypy",
 ]
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/sentimentdataset"]
+
 [project.urls]
 "Homepage" = "https://github.com/biocypher-user/sentimentdataset.csv"
 "Bug Tracker" = "https://github.com/biocypher-user/sentimentdataset.csv/issues"
