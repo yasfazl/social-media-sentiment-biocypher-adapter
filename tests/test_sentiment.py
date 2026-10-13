@@ -1,7 +1,8 @@
 """Tests for the v3 social-media sentiment graph adapter."""
-
 import csv
 from pathlib import Path
+
+import pytest
 
 from sentimentdataset.adapter import SentimentAdapter
 
